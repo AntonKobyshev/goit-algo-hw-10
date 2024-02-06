@@ -1,29 +1,23 @@
 import numpy as np
-import random
 import matplotlib.pyplot as plt
 import scipy.integrate as spi
-
 
 def f(x):
     return x**2 + 5 * x + 10
 
-
 a = 1
 b = 5
-
 n = 10000
+
+x_random = np.random.uniform(a, b, n)
+y_random = np.random.uniform(0, f(b), n)
+
+points_under_curve = np.sum(y_random <= f(x_random))
+
+area = (b - a) * (f(b) * points_under_curve / n)
 
 x_values = np.linspace(a, b, 400)
 y_values = f(x_values)
-
-points_under_curve = 0
-for _ in range(n):
-    x = random.uniform(a, b)
-    y = random.uniform(0, max(y_values))
-    if y <= f(x):
-        points_under_curve += 1
-
-area = (b - a) * (max(y_values) * points_under_curve / n)
 
 plt.figure(figsize=(10, 6))
 plt.plot(x_values, y_values, "b-", label="f(x) = x^2 + 15x + 19")
